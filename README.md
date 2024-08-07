@@ -30,6 +30,8 @@
 
 1. Lier les labels aux entrées dans le HTML en utilisant les attributs "for" et "id" dans le code existant. Corriger le code HTML quand nécessaire.
 
+    -> **ok** attributs `for` des `label` lié aux `id` des `input`
+
 2. Utiliser du JavaScript pur (pas de jQuery) pour terminer le formulaire :
 
     * Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
@@ -48,3 +50,23 @@
 
 * Ajouter la fonctionnalité au bouton (x)
   * soit fermer la modale contenant le formulaire
+
+## NOTES
+
+### Vérifier les champs
+
+* Pour vérifier si un champ est comforme aux règles, à la soumission :
+
+  * écouter l’événement ``submit`` sur le formulaire
+
+  * récupérer la valeur de ce champ
+
+  * réaliser un test
+
+* **Pour supprimer les espaces vides**, penser à nettoyer les champs avant de les tester. La méthode ``trim()`` permet de nettoyer le champ et de supprimer automatiquement les espaces et autres tabulations autour de la chaîne à tester.
+
+* Penser à empêcher le comportement par défaut lors de la soumission du formulaire (évite le rechargement de la page) avec ``event.preventDefault();``.
+
+### ?
+
+* on vérifie sur le champ ou sur la soumission (ou les 2)?

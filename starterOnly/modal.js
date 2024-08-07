@@ -33,7 +33,7 @@ let radioBtnList = document.querySelectorAll('input[type=radio]');
 //   console.log(firstName.value);
 // })
 
-// check checkbox value
+// check if checkbox is checked
 console.log(checkbox1.checked);
 
 // check radio buttons values
@@ -47,8 +47,32 @@ for (let i = 0; i < radioBtnList.length; i++) {
 let form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault(); // wanna control submission
+  let firstNameTag = document.querySelector("#first"); // check firstName value
+  let lastNameTag = document.querySelector("#last"); // check lastName value
+  let emailTag = document.querySelector("#email"); // check lastName value
+  let birthdateTag = document.querySelector("#birthdate"); // check birthdate value
+  let quantityTag = document.querySelector("#quantity"); // check quantity value
 
-  // check firstName input value
-  let firstName = document.querySelector("#first");
-  console.log(firstName.value);
+  let firstName = firstNameTag.value.trim();
+  let lastName = lastNameTag.value.trim();
+  let email = emailTag.value;
+  let birthdate = birthdateTag.value;
+  let quantity = quantityTag.value;
+
+  if (firstName.length < 2) {
+    console.log("Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+  } else {
+    console.log("ok pour le champ du nom");
+  }
+
+  
+
+  if (birthdateTag.value === '') {
+    console.log("Vous devez entrer votre date de naissance.");
+  }
+
+  console.log(firstName.value, lastName.value, email.value, birthdate.value, quantity.value);
 })
+
+/**** email ****/
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
