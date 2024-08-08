@@ -36,6 +36,9 @@
 
     * Le formulaire doit être valide quand l'utilisateur clique sur "Submit"
 
+    *formulaire valide? c'est a dire? ...valide???*
+        *on ne pt valider que si ttes les regles des champs sont respectées?*
+
     * Les données doivent être saisies correctement :
         1. Le champ Prénom a un minimum de 2 caractères / n'est pas vide.
         2. Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide.
@@ -66,6 +69,39 @@
 * **Pour supprimer les espaces vides**, penser à nettoyer les champs avant de les tester. La méthode ``trim()`` permet de nettoyer le champ et de supprimer automatiquement les espaces et autres tabulations autour de la chaîne à tester.
 
 * Penser à empêcher le comportement par défaut lors de la soumission du formulaire (évite le rechargement de la page) avec ``event.preventDefault();``.
+
+* Pour tester le formulaire, il faut parfois bloquer les règles de validation du navigateur:
+
+  * ajouter l'attribut `novalidate` dans la balise `form`
+
+### RegExp Memo
+
+* On va tester tt au long de la construction de la RegExp sur différentes adresse mail valide & on valide, sur le site [regexp101](https://regex101.com/).
+
+* prend ttes les lettres entre a & z
+    `[a-z]`
+* répéter 1 fois autant que possible (prend le plus possible de lettre à chaque fois au lieu de tester lettre par lettre)
+    `+`
+* mais il manque les charactères spéciaux tel: `.`, `-`, `_`, `@`
+donc on rajoute à notre RegExp actuelle `[a-z]+`:
+    `._-`
+* ce qui donne la RegExp suivante: `[a-z._-]+`
+
+* pour l'instant seules les blocks sont sélectionnés, mais nous voulons **sélectionner l'adresse entière**, & que l'adresse sans `@` ne soit pas sélectionnée.
+
+* donc on rajoute un `@` à la **RegExp**, soit:
+    `[a-z._-]+@`
+* mais la sélection s'arrête à l'`@`
+* on va dupliquer le 1er block de la RegExp ce qui ns donne:
+`[a-z._-]+@[a-z._-]+`
+
+* il reste à gérer la fin type `.com`
+
+* par contre, on ne pt pas ajouter directement un `.` à la RegExp car c'est un charactère interprété (il correspond à n'importe quel charactère), alors que nous voulons le char. spécial `.` précisément et rien d'autre, la solution, il faut l'échapper avec un **back slash**: `\`, ce qui donne:
+    `[a-z._-]+@[a-z._-]+\.`
+* enfin on réutilise le même block qu'au début: `[a-z._-]+`
+* et voilà... ce qui ns donne au final:
+  * **RegExp finale**: `/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm`
 
 ### ?
 
