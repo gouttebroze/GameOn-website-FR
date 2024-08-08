@@ -103,6 +103,119 @@ donc on rajoute à notre RegExp actuelle `[a-z]+`:
 * et voilà... ce qui ns donne au final:
   * **RegExp finale**: `/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm`
 
-### ?
+### Gestion des messages d'erreurs
+
+* Après la vérification de la valeur d’un champ, il faut voir comment afficher les messages d'erreurs. Comment réagir lorsque un champ ne correspond pas à ce qu'on veut? (type un utilisateur oublie de renseigner son nom ou fait une erreur en écrivant son email...)
+
+* voyons 2 méthodes pr gérer les erreurs:
+
+  * les erreurs courantes avec les ``if / else``
+
+  * centraliser la gestion des erreurs grâce aux exceptions ``try``, ``catch`` et ``throw``.
+
+* Les conditions if / else pour gérer les erreurs courantes:
+  * Une manière intuitive pr gérer les erreurs est d’utiliser les techniques connus tel les conditions avec les ``if / else``
+  * mais cette approche va être constitué de 3 parties:
+    * déclaration
+    * gestion de l'erreur
+    * résultat
+  * ce qui manque de généricité
+
+  * Le problème c’est que nous avons, au milieu de notre code, une partie dont l’unique but est de gérer l’erreur. Il est probable que nous ayons à nouveau besoin de gérer des erreurs dans cette suite…
+
+  * il est plutôt conseillé de placer la gestion de l’erreur ailleurs, de manière à avoir une structure en deux temps:
+
+        *déclaration puis résultat*
+
+  * Concrètement, on essaie d’exécuter ce code, et en cas de problème, on appelle un bloc de code ailleurs pour gérer l’erreur.
+
+  * Les instructions ``try / catch`` permettent de distinguer d’un côté, l'exécution “quand tout marche bien”, et de l’autre la gestion de nos erreurs.
+
+### l’instruction throw
+
+* ``Try`` sert à exécuter du code
+* ``catch`` à attraper les erreurs
+* Cela marche bien avec des erreurs JavaScript qui sont conçues pour lancer des exceptions.
+
+* Cependant, il arrive que nous voulions créer nos propres fonctions, qui lancent une exception en cas d’échec.
+
+* Dans ce cas, la solution est d’utiliser l’instruction ``throw`` (qu'on pt traduire par "lancer").
+* Ce qui nous permet de lancer nos propres exceptions, qui pourront alors être attrapées par un ``catch``.
+
+* Exemple pr vérifié qu'un champ nom n’est pas vide. Utilisons ``try`` / ``catch`` et ``throw`` pour gérer ces erreurs :
+
+```js
+function verifierChamp(champ) { // fonction qui prend un champ en paramètre
+    // Si le champ est vide, on lance une exception crée grâce à new Error
+    if (champ.value === "") {
+        // je passe à cette erreur le paramètre: message d’erreur
+        throw new Error(`Le champ ${champ.id} est vide`)
+    }
+}
+```
+
+* Attraper cette exception permet d'utiliser de ce message pour afficher n'importe quel texte.
+
+* Le principe de ``try catch`` existe dans de nombreux langages de programmation. C’est de ce principe qu’est née l’expression “lancer une exception”, même si en réalité ici, nous lançons une “erreur”. Parfois, on parle également de “lever une exception”.
+
+
+
+### Questions
 
 * on vérifie sur le champ ou sur la soumission (ou les 2)?
+
+* quelle méthode utiliser pr le message de confirmation de la soumission réussie?
+
+    `confirm`?, `alert`?
+
+* on peut utiliser l'api de validation des contraintes?
+
+* méthode pr conserver données? localstorage?
+
+### TODO JS
+
+```js
+// récupérer les balises html
+
+// créer fonctions de validation des champs
+function checkName(name) {
+    // + placer la méthode "trim()" pr gérer les espaces vides
+    if (name.length >= 2) { // si name.length >= 2 ou inverse ?     
+        return true;
+    } 
+    // message d'erreur (méthode "alert()"?)
+    alert("message d'erreur: ... mettre + de 2 char.")
+    return false;
+}
+
+// fn mail valide
+function emailVerifed(email) {
+    // use email regexp
+    let emailRegExp = new RegExp(/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm);
+}
+
+// fn champ numérique
+function checkNumberType(quantity) {}
+
+// fn validation champ date naissance rempli
+function birthdateNotEmpty(birthdate) {}
+
+// fn validation boutton radio séléctionné
+function checkRadioBtnSelected(radioBtn) {}
+
+// fn validation checkbox cochée
+function checkbox1Selected(checkbox1) {}
+
+form.addEventlistener("submit", (e) => {
+    e.preventDefault()
+
+    // validation form - message confirmation 
+    if (checkName(fistName) && checkName(lastName) && emailVerifed(email)) { // & all others functions
+        alert("Merci ! Votre réservation a été reçue.");
+    }
+})
+
+// implémenter la persistance des textes des champs
+
+// fermer la modal ...
+```
