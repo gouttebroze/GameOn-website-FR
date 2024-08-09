@@ -31,17 +31,13 @@ let quantityTag = document.querySelector("#quantity");
 let checkbox1 = document.getElementById("checkbox1");
 let radioBtnList = document.querySelectorAll('input[type=radio]');
 
-/*******************
- *** Constants 
- *******************/
 const SUCCES_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const SELECT_OPTION = "Vous devez choisir une option.";
-const CHECKBOX_REQUIRED = "Vous devez vérifier que vous acceptez les termes et conditions.";
+const TERMS_CONDITIONS_AGREE = "Vous devez vérifier que vous acceptez les termes et conditions.";
 const BIRTHDATE_REQUIRED = "Vous devez entrer votre date de naissance.";
 const ERROR = "Erreur..."
 
-// et l'utilisation de "minlength" du coup ds tt ça?
 let firstName = firstNameTag.value;
 let lastName = lastNameTag.value;
 let email = emailTag.value;
@@ -58,32 +54,29 @@ let email = emailTag.value;
 //   return false;
 // }
 
-/**
- * use try/catch/throw allow to centralized errors management
- * @param {*} name 
- */
 function checkName(name) {
   if (name.length < 2) {
-    throw new Error(`Veuillez entrer 2 caractères ou plus sur le champ ${name}.`)
+    return false
   }
+  return true
 }
 
-try {
-  checkName(firstName)
-  checkName(lastName)
-} catch(err) {
-  console.log(err);
-}
+// try {
+//   checkName(firstName)
+//   checkName(lastName)
+// } catch(err) {
+//   console.log(err);
+// }
 
 /**
  * email regexp (see more details about this regexp construction on README)
  */
-
 function checkEmail(email) {
-  let emailRegExp = new RegExp("/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm");
+  let emailRegExp = new RegExp(/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm);
   if (emailRegExp.test(email)) {
     return true;
-  }
+  } 
+  console.log("adresse mail non valide");
   return false;
 }
 
@@ -97,80 +90,50 @@ function checkRadioBtnSelected(radioBtnList) {
 }
 
 
+function checkFirstNameValid() {
+  const formDataTag = firstNameTag.parentNode
+  if (checkName(firstNameTag.value)) {
+     formDataTag.removeAttribute("data-error-visible")
+     formDataTag.removeAttribute("data-error")
+  } else {   
+    formDataTag.setAttribute("data-error-visible", "true")
+    formDataTag.setAttribute("data-error", MIN_CHAR)
+  }
+}
+
 /**
- * validation on form submit
+ * form validation
  */
 let form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
-  e.preventDefault(); // wanna control submission
+  e.preventDefault();
 
   let firstName = firstNameTag.value;
   let lastName = lastNameTag.value;
   let email = emailTag.value;
-  // checkName(firstName);
-  // checkName(lastName);
-  // checkEmail(email);
-  checkRadioBtnSelected(radioBtnList); // ok, value is login'
 
+  /************************************************************** 
+   * NON! ces tests doivent se faire directement sur 
+   * le champs concerné & non à la validation du formulaire!!! 
+   * ***************************************************************/
+  checkName(lastName);
+  checkEmail(email);
+  checkRadioBtnSelected(radioBtnList); // ok, value is login'
+  checkFirstNameValid(firstName)
+
+  /*****************************************************
+   * OK CI DESSOUS on vérifie chaque champ respecte 
+   * les règles pour lancer la soumission du form 
+   * ***************************************************/
   if (checkName(firstName) && checkName(lastName) && checkEmail(email)) {
     alert(SUCCES_SUBMIT);
     console.log(SUCCES_SUBMIT);
   } else {
     console.log(ERROR);
   }
-
 })
 
 /**** check on input field *****/
-firstNameTag.addEventListener("change", () => {
-  console.log(checkName(firstNameTag.value)); // ok, it runs, return true if valide & false if error 
-})
-
-
-
-/************************************************
- ************* TODO from README ***************** 
- ************************************************/
-// récupérer les balises html
-
-// créer fonctions de validation des champs
-// function checkName(name) {
-//     // + placer la méthode "trim()" pr gérer les espaces vides
-//     if (name.length >= 2) { // si name.length >= 2 ou inverse ?     
-//         return true;
-//     } 
-//     // message d'erreur (méthode "alert()"?)
-//     alert("message d'erreur: ... mettre + de 2 char.")
-//     return false;
-// }
-
-// // fn mail valide
-// function emailVerifed(email) {
-//     // use email regexp
-//     let emailRegExp = new RegExp(/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm);
-// }
-
-// // fn champ numérique
-// function checkNumberType(quantity) {}
-
-// // fn validation champ date naissance rempli
-// function birthdateNotEmpty(birthdate) {}
-
-// // fn validation boutton radio séléctionné
-// function checkRadioBtnSelected(radioBtn) {}
-
-// // fn validation checkbox cochée
-// function checkbox1Selected(checkbox1) {}
-
-// form.addEventlistener("submit", (e) => {
-//     e.preventDefault()
-
-//     // validation form - message confirmation 
-//     if (checkName(fistName) && checkName(lastName) && emailVerifed(email)) { // & all others functions
-//         alert("Merci ! Votre réservation a été reçue.");
-//     }
+// firstNameTag.addEventListener("change", () => {
+//   console.log(checkName(firstNameTag.value)); // ok, it runs, return true if valide & false if error 
 // })
-
-// implémenter la persistance des textes des champs
-
-// fermer la modal ...

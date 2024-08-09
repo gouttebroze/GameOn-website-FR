@@ -158,11 +158,9 @@ function verifierChamp(champ) { // fonction qui prend un champ en paramètre
 
 * Le principe de ``try catch`` existe dans de nombreux langages de programmation. C’est de ce principe qu’est née l’expression “lancer une exception”, même si en réalité ici, nous lançons une “erreur”. Parfois, on parle également de “lever une exception”.
 
-
-
 ### Questions
 
-* on vérifie sur le champ ou sur la soumission (ou les 2)?
+* trouver méthode pour générer msg d'erreur directement sur le champ (il est fais en console)
 
 * quelle méthode utiliser pr le message de confirmation de la soumission réussie?
 
@@ -171,6 +169,14 @@ function verifierChamp(champ) { // fonction qui prend un champ en paramètre
 * on peut utiliser l'api de validation des contraintes?
 
 * méthode pr conserver données? localstorage?
+
+* à voir si compris ou non!:
+
+  * *on test les règles de validation:*
+
+    * *directement sur le champ: pour gérer les messages d'erreurs du champ concerné (comme il est stipulé: "Les messages d'erreur doivent s'afficher sous le champ de saisie associé")*
+
+    * *à la soumission du formulaire (sur l'évenement `submit`): pour gérer le message de validation du formulaire et donc des champs réunis*
 
 ### TODO JS
 
