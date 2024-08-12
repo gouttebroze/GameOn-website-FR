@@ -100,6 +100,25 @@ function isNotNumber(quantity) {
   }
 }
 
+function checkBirthDate(birthdate) {
+  if ((birthdate === "") || (birthdate === "mm/dd/yyyy")) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function checkBirthDateNotEmpty() {
+  const formDataTag = birthdateTag.parentNode
+  if (birthdateTag.value) {
+    formDataTag.removeAttribute("data-error-visible");
+    formDataTag.removeAttribute("data-error");
+  } else {
+    formDataTag.setAttribute("data-error-visible", "true");
+    formDataTag.setAttribute("data-error", BIRTHDATE_REQUIRED);
+  }
+}
+
 // validation selected btn radio 
 function checkRadioBtn() {
   for (let i = 0; i < radioBtnList.length; i++) {
@@ -178,6 +197,7 @@ form.addEventListener("submit", (e) => {
   let firstName = firstNameTag.value;
   let lastName = lastNameTag.value;
   let email = emailTag.value;
+  let birthday = birthdateTag.value;
 
   /************************************************************** 
    * NON! ces tests doivent se faire directement sur 
@@ -191,12 +211,13 @@ form.addEventListener("submit", (e) => {
   checkEmailValid(email)
   checkRadioBtn()
   isCheckboxSelected(checkbox1)
+  checkBirthDateNotEmpty(birthday)
 
   /*****************************************************
    * OK CI DESSOUS on vérifie chaque champ respecte 
    * les règles pour lancer la soumission du form 
    * ***************************************************/
-  if (checkName(firstName) && checkName(lastName) && checkEmail(email) && checkRadioBtn()) {
+  if (checkName(firstName) && checkName(lastName) && checkEmail(email) && checkRadioBtn() && checkBirthDateNotEmpty(birthday)) {
      alert(SUCCES_SUBMIT);
      console.log(SUCCES_SUBMIT);
    } else {
