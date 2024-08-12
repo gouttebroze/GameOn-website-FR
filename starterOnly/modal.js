@@ -34,6 +34,7 @@ let radioBtnList = document.querySelectorAll('input[type=radio]');
 const SUCCES_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const EMAIL_FORMAT_VALID = "Veuillez entrer une adresse mail valide.";
+const NUMERIQUE_VALUE = "Veuillez saisir une valeur numérique pour le nombre de concours.";
 const SELECT_OPTION = "Vous devez choisir une option.";
 const TERMS_CONDITIONS_AGREE = "Vous devez vérifier que vous acceptez les termes et conditions.";
 const BIRTHDATE_REQUIRED = "Vous devez entrer votre date de naissance.";
@@ -42,6 +43,7 @@ const ERROR = "Erreur..."
 let firstName = firstNameTag.value;
 let lastName = lastNameTag.value;
 let email = emailTag.value;
+let quantity = quantityTag.value;
 
 /**
  * errors management with if/else conditions
@@ -81,15 +83,46 @@ function checkEmail(email) {
   return false;
 }
 
-// validation selected btn radio 
-function checkRadioBtnSelected(radioBtnList) {
-  for (let i = 0; i < radioBtnList.length; i++) {
-    if (radioBtnList[i].checked) {
-      console.log(radioBtnList[i].value);
-    }
+function checkNumeriqueValue() {
+  if (Number.isInteger(quantityTag.value)) {
+    return true;
+  } else {
+    return false;
   }
 }
 
+// think to call fn
+function isNotNumber(quantity) {
+  if (isNaN(quantityTag.value)) {
+    return false; // falsy: number
+  } else {
+    return true;
+  }
+}
+
+// validation selected btn radio 
+function checkRadioBtn() {
+  for (let i = 0; i < radioBtnList.length; i++) {
+    if (radioBtnList[i].checked) {
+      console.log(radioBtnList[i].checked); // true
+      console.log(radioBtnList[radioBtnList.length - 1]);
+      radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error-visible");
+      radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error");
+      return true;
+    } 
+  }
+  radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error-visible", "true") // change attribute value to true
+  radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error", SELECT_OPTION)
+  return false;
+}
+
+function isCheckboxSelected(checkbox) {
+  if (checkbox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function checkFirstNameValid() {
   const formDataTag = firstNameTag.parentNode
@@ -124,6 +157,17 @@ function checkEmailValid() {
   }
 }
 
+// function checkRadioBtnSelected() {
+//   const formDataTag = radioBtnList.parentNode
+//   if (checkRadioBtnSelected(radioBtnList.checked)) {
+//     formDataTag.removeAttribute("data-error-visible")
+//     formDataTag.removeAttribute("data-error")
+//   } else {
+//     formDataTag.setAttribute("data-error-visible", "true")
+//     formDataTag.setAttribute("data-error", EMAIL_FORMAT_VALID)
+//   }
+// }
+
 /**
  * form validation
  */
@@ -141,21 +185,23 @@ form.addEventListener("submit", (e) => {
    * ***************************************************************/
   // checkName(lastName);
   // checkEmail(email);
-  checkRadioBtnSelected(radioBtnList); // ok, value is login'
+  // checkRadioBtn(radioBtnList); // ok, value is login'
   checkFirstNameValid(firstName)
   checkLastNameValid(lastName)
   checkEmailValid(email)
+  checkRadioBtn()
+  isCheckboxSelected(checkbox1)
 
   /*****************************************************
    * OK CI DESSOUS on vérifie chaque champ respecte 
    * les règles pour lancer la soumission du form 
    * ***************************************************/
-  if (checkName(firstName) && checkName(lastName) && checkEmail(email)) {
-    alert(SUCCES_SUBMIT);
-    console.log(SUCCES_SUBMIT);
-  } else {
-    console.log(ERROR);
-  }
+  if (checkName(firstName) && checkName(lastName) && checkEmail(email) && checkRadioBtn()) {
+     alert(SUCCES_SUBMIT);
+     console.log(SUCCES_SUBMIT);
+   } else {
+     console.log(ERROR);
+   }
 })
 
 /**** check on input field *****/
