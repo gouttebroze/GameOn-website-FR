@@ -33,6 +33,7 @@ let radioBtnList = document.querySelectorAll('input[type=radio]');
 
 const SUCCES_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+const EMAIL_FORMAT_VALID = "Veuillez entrer une adresse mail valide.";
 const SELECT_OPTION = "Vous devez choisir une option.";
 const TERMS_CONDITIONS_AGREE = "Vous devez vérifier que vous acceptez les termes et conditions.";
 const BIRTHDATE_REQUIRED = "Vous devez entrer votre date de naissance.";
@@ -101,6 +102,28 @@ function checkFirstNameValid() {
   }
 }
 
+function checkLastNameValid() {
+  const formDataTag = lastNameTag.parentNode
+  if (checkName(lastNameTag.value)) {
+    formDataTag.removeAttribute("data-error-visible")
+    formDataTag.removeAttribute("data-error")
+  } else {
+    formDataTag.setAttribute("data-error-visible", "true")
+    formDataTag.setAttribute("data-error", MIN_CHAR)
+  }
+}
+
+function checkEmailValid() {
+  const formDataTag = emailTag.parentNode
+  if (checkEmail(emailTag.value)) {
+    formDataTag.removeAttribute("data-error-visible")
+    formDataTag.removeAttribute("data-error")
+  } else {
+    formDataTag.setAttribute("data-error-visible", "true")
+    formDataTag.setAttribute("data-error", EMAIL_FORMAT_VALID)
+  }
+}
+
 /**
  * form validation
  */
@@ -116,10 +139,12 @@ form.addEventListener("submit", (e) => {
    * NON! ces tests doivent se faire directement sur 
    * le champs concerné & non à la validation du formulaire!!! 
    * ***************************************************************/
-  checkName(lastName);
-  checkEmail(email);
+  // checkName(lastName);
+  // checkEmail(email);
   checkRadioBtnSelected(radioBtnList); // ok, value is login'
   checkFirstNameValid(firstName)
+  checkLastNameValid(lastName)
+  checkEmailValid(email)
 
   /*****************************************************
    * OK CI DESSOUS on vérifie chaque champ respecte 
