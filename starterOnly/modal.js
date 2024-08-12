@@ -12,6 +12,8 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
+const closeModal = document.querySelector(".close");
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -19,6 +21,11 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
+
+// closeModal.addEventListener(("click", () => {
+//   // modalbg.style.display = "none"; 
+// }))
+
 
 /******************************
  *  check inputs form values 
@@ -34,7 +41,7 @@ let radioBtnList = document.querySelectorAll('input[type=radio]');
 const SUCCES_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const EMAIL_FORMAT_VALID = "Veuillez entrer une adresse mail valide.";
-const NUMERIQUE_VALUE = "Veuillez saisir une valeur numérique pour le nombre de concours.";
+const NUMERIQUE_VALUE = "Veuillez saisir une valeur numérique inférieure ou égale à 99 pour le nombre de concours.";
 const SELECT_OPTION = "Vous devez choisir une option.";
 const TERMS_CONDITIONS_AGREE = "Vous devez vérifier que vous acceptez les termes et conditions.";
 const BIRTHDATE_REQUIRED = "Vous devez entrer votre date de naissance.";
@@ -92,11 +99,30 @@ function checkNumeriqueValue() {
 }
 
 // think to call fn
-function isNotNumber(quantity) {
-  if (isNaN(quantityTag.value)) {
-    return false; // falsy: number
-  } else {
+// function isNotNumber(quantity) {
+//   if (isNaN(quantityTag.value)) {
+//     return false; // falsy: number
+//   } else {
+//     return true;
+//   }
+// }
+
+function checkQuantity(totalQuantity) {
+  if ((totalQuantity !== "") && (totalQuantity <= 99)) {
     return true;
+  } else {
+    return false;
+  }
+}
+
+function checkQuantityValue() {
+  const formDataTag = quantityTag.parentNode;
+  if (checkQuantity(quantityTag.value)) {
+    formDataTag.removeAttribute("data-error-visible");
+    formDataTag.removeAttribute("data-error");    
+  } else {
+    formDataTag.setAttribute("data-error-visible", "true");
+    formDataTag.setAttribute("data-error", NUMERIQUE_VALUE);
   }
 }
 
@@ -109,8 +135,8 @@ function checkBirthDate(birthdate) {
 }
 
 function checkBirthDateNotEmpty() {
-  const formDataTag = birthdateTag.parentNode
-  if (birthdateTag.value) {
+  const formDataTag = birthdateTag.parentNode;
+  if (checkBirthDate(birthdateTag.value)) {
     formDataTag.removeAttribute("data-error-visible");
     formDataTag.removeAttribute("data-error");
   } else {
@@ -140,6 +166,17 @@ function isCheckboxSelected(checkbox) {
     return true;
   } else {
     return false;
+  }
+}
+
+function checkIsCheckBoxSelected() {
+  const formDataTag = checkbox1.parentNode
+  if (isCheckboxSelected(checkbox1.checked)) {
+    formDataTag.removeAttribute("data-error-visible");
+    formDataTag.removeAttribute("data-error");
+  } else {
+    formDataTag.setAttribute("data-error-visible", "true");
+    formDataTag.setAttribute("data-error", TERMS_CONDITIONS_AGREE);
   }
 }
 
@@ -176,17 +213,6 @@ function checkEmailValid() {
   }
 }
 
-// function checkRadioBtnSelected() {
-//   const formDataTag = radioBtnList.parentNode
-//   if (checkRadioBtnSelected(radioBtnList.checked)) {
-//     formDataTag.removeAttribute("data-error-visible")
-//     formDataTag.removeAttribute("data-error")
-//   } else {
-//     formDataTag.setAttribute("data-error-visible", "true")
-//     formDataTag.setAttribute("data-error", EMAIL_FORMAT_VALID)
-//   }
-// }
-
 /**
  * form validation
  */
@@ -198,6 +224,7 @@ form.addEventListener("submit", (e) => {
   let lastName = lastNameTag.value;
   let email = emailTag.value;
   let birthday = birthdateTag.value;
+  let quantity = quantityTag.value;
 
   /************************************************************** 
    * NON! ces tests doivent se faire directement sur 
@@ -209,15 +236,26 @@ form.addEventListener("submit", (e) => {
   checkFirstNameValid(firstName)
   checkLastNameValid(lastName)
   checkEmailValid(email)
-  checkRadioBtn()
-  isCheckboxSelected(checkbox1)
   checkBirthDateNotEmpty(birthday)
+  checkRadioBtn()
+  checkQuantityValue(quantity)
+  // isCheckboxSelected(checkbox1.checked)
+  // checkIsCheckBoxSelected()
+  
+  
 
   /*****************************************************
    * OK CI DESSOUS on vérifie chaque champ respecte 
    * les règles pour lancer la soumission du form 
    * ***************************************************/
-  if (checkName(firstName) && checkName(lastName) && checkEmail(email) && checkRadioBtn() && checkBirthDateNotEmpty(birthday)) {
+  if ( /*
+      checkName(firstName) && 
+      checkName(lastName) && 
+      checkEmail(email) && 
+      checkRadioBtn() && 
+      checkBirthDateNotEmpty(birthday) */
+      log
+    ) {
      alert(SUCCES_SUBMIT);
      console.log(SUCCES_SUBMIT);
    } else {
