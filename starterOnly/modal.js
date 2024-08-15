@@ -22,10 +22,13 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-// closeModal.addEventListener(("click", () => {
-//   modalbg.style.display = "none"; 
-// }))
+// close modal form
+function closeModalFn() {
+  modalbg.style.display = "none";
+}
 
+// close modal on click arrow btn 
+closeModal.addEventListener("click", closeModalFn)
 
 /******************************
  *  check inputs form values 
@@ -227,9 +230,6 @@ form.addEventListener("submit", (e) => {
   const birthdayValue = birthdateTag.value;
   const quantityValue = quantityTag.value;
 
-  /************************************************************** 
-   * confirm submit success form
-   **************************************************************/
   checkFirstNameValid(firstNameValue)
   checkLastNameValid(lastNameValue)
   checkEmailValid(emailValue)
@@ -238,6 +238,9 @@ form.addEventListener("submit", (e) => {
   checkRadioBtn()
   checkTermsConditions()
 
+  /************************************************************** 
+   * confirm submit success form
+   **************************************************************/
   if (checkName(firstNameValue) 
       && checkName(lastNameValue) 
       && checkEmail(emailValue) 
@@ -255,8 +258,6 @@ form.addEventListener("submit", (e) => {
    return false;
   }
 )
-
-
 
 /**
  * fn that reset form
@@ -277,6 +278,9 @@ function setErrorMsg(tag, msg) {
   formDataTag.setAttribute("data-error", msg)
 }
 
+document.querySelector(".close").addEventListener("click", () => {
+  
+})
 
 
 /** TODO ** */
