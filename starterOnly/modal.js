@@ -93,8 +93,11 @@ const checkQuantity = (totalQuantity) => {
   }
 }
 
-
-
+/**
+ * fn that check if bithdate field is empty or not & if have good Date format
+ * @param {Date} birthdate 
+ * @returns 
+ */
 const checkBirthDate = (birthdate) => {
   if ((birthdate === "") || (birthdate === "mm/dd/yyyy")) {
     return false;
@@ -103,7 +106,10 @@ const checkBirthDate = (birthdate) => {
   }
 }
 
-// validation selected btn radio 
+/**
+ * check if one or more radio btn are selected
+ * @returns
+ */ 
 const checkRadioBtn = () => {
   for (let i = 0; i < radioBtnList.length; i++) {
     if (radioBtnList[i].checked) {
