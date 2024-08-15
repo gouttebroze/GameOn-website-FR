@@ -238,10 +238,6 @@ form.addEventListener("submit", (e) => {
   checkRadioBtn()
   checkTermsConditions()
 
-  // "return validate()" fn deleted from onSubmit HTML form attribut
-  //return validate();
-  
-
   if (checkName(firstNameValue) 
       && checkName(lastNameValue) 
       && checkEmail(emailValue) 
@@ -252,6 +248,7 @@ form.addEventListener("submit", (e) => {
     ) {   
      alert(SUCCESS_SUBMIT);
      console.log(SUCCESS_SUBMIT);
+     resetForm(); // use "resetForm()" fn to reset form if submit is successfull
      return true;
    }
    console.log(ERROR);
@@ -259,14 +256,14 @@ form.addEventListener("submit", (e) => {
   }
 )
 
-/** TODO ** */
-/*
-create fn to : 
-  + remove attribute
-  + set attribute
 
-on date rules validation, add an error msg if date selected > today !
-*/
+
+/**
+ * fn that reset form
+ */
+const resetForm = () => {
+  document.querySelector("form").reset();
+}
 
 function deleteErrorMsg(tag) {
   const formDataTag = tag.parentNode;
@@ -280,6 +277,14 @@ function setErrorMsg(tag, msg) {
   formDataTag.setAttribute("data-error", msg)
 }
 
+
+
+/** TODO ** */
+/*
+  Close modal after form validation
+*/
+
 /**
- * "onsubmit" HTMLElement : return validate()
+ * See "onsubmit" : 
+ *  - fn deleted from onSubmit HTML form attribut : onSubmit="return validate()"
  */
