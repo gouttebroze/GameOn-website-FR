@@ -23,7 +23,7 @@ function launchModal() {
 }
 
 // closeModal.addEventListener(("click", () => {
-//   // modalbg.style.display = "none"; 
+//   modalbg.style.display = "none"; 
 // }))
 
 
@@ -54,34 +54,20 @@ let quantity = quantityTag.value;
 
 /**
  * errors management with if/else conditions
- * @param {*} name 
+ * @param {string} name 
  * @returns 
  */
-// function checkName(name) {
-//   if (name.length >= 2) {
-//     return true;  
-//   }
-//   return false;
-// }
-
-function checkName(name) {
+const checkName = (name) => {
   if (name.length < 2) {
     return false
   }
   return true
 }
 
-// try {
-//   checkName(firstName)
-//   checkName(lastName)
-// } catch(err) {
-//   console.log(err);
-// }
-
 /**
  * email regexp (see more details about this regexp construction on README)
  */
-function checkEmail(email) {
+const checkEmail = (email) => {
   let emailRegExp = new RegExp(/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm);
   if (emailRegExp.test(email)) {
     return true;
@@ -90,32 +76,15 @@ function checkEmail(email) {
   return false;
 }
 
-function checkNumeriqueValue() {
-  if (Number.isInteger(quantityTag.value)) {
+const checkQuantity = (totalQuantity) => {
+  if ((totalQuantity !== "") && (totalQuantity <= 99)) { // ? if (isNaN(quantityTag.value))
     return true;
   } else {
     return false;
   }
 }
 
-// think to call fn
-// function isNotNumber(quantity) {
-//   if (isNaN(quantityTag.value)) {
-//     return false; // falsy: number
-//   } else {
-//     return true;
-//   }
-// }
-
-function checkQuantity(totalQuantity) {
-  if ((totalQuantity !== "") && (totalQuantity <= 99)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function checkQuantityValue() {
+const checkQuantityValue = () => {
   const formDataTag = quantityTag.parentNode;
   if (checkQuantity(quantityTag.value)) {
     formDataTag.removeAttribute("data-error-visible");
@@ -126,7 +95,7 @@ function checkQuantityValue() {
   }
 }
 
-function checkBirthDate(birthdate) {
+const checkBirthDate = (birthdate) => {
   if ((birthdate === "") || (birthdate === "mm/dd/yyyy")) {
     return false;
   } else {
@@ -134,19 +103,21 @@ function checkBirthDate(birthdate) {
   }
 }
 
-function checkBirthDateNotEmpty() {
-  const formDataTag = birthdateTag.parentNode;
+const checkBirthDateNotEmpty = () => {
+  // const formDataTag = birthdateTag.parentNode;
   if (checkBirthDate(birthdateTag.value)) {
-    formDataTag.removeAttribute("data-error-visible");
-    formDataTag.removeAttribute("data-error");
+    deleteErrorMsg(birthdateTag);
+    // formDataTag.removeAttribute("data-error-visible");
+    // formDataTag.removeAttribute("data-error");
   } else {
-    formDataTag.setAttribute("data-error-visible", "true");
-    formDataTag.setAttribute("data-error", BIRTHDATE_REQUIRED);
+    setErrorMsg(birthdateTag, BIRTHDATE_REQUIRED);
+    // formDataTag.setAttribute("data-error-visible", "true");
+    // formDataTag.setAttribute("data-error", BIRTHDATE_REQUIRED);
   }
 }
 
 // validation selected btn radio 
-function checkRadioBtn() {
+const checkRadioBtn = () => {
   for (let i = 0; i < radioBtnList.length; i++) {
     if (radioBtnList[i].checked) {
       console.log(radioBtnList[i].checked); // true
@@ -161,48 +132,65 @@ function checkRadioBtn() {
   return false;
 }
 
-function isCheckboxSelected(checkbox) {
-  if (checkbox.checked) {
+const isCheckboxSelected = (checkbox) => {
+  if (!checkbox.checked) {
+    console.log("Les conditions doivent être acceptés.");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+const checkTermsConditions = () => {
+  if (checkbox1.checked) {
+    deleteErrorMsg(checkbox1);
     return true;
   } else {
+    console.log(TERMS_CONDITIONS_AGREE);
+    setErrorMsg(checkbox1, TERMS_CONDITIONS_AGREE);
     return false;
   }
 }
 
-function checkIsCheckBoxSelected() {
-  const formDataTag = checkbox1.parentNode
-  if (isCheckboxSelected(checkbox1.checked)) {
-    formDataTag.removeAttribute("data-error-visible");
-    formDataTag.removeAttribute("data-error");
-  } else {
-    formDataTag.setAttribute("data-error-visible", "true");
-    formDataTag.setAttribute("data-error", TERMS_CONDITIONS_AGREE);
-  }
-}
+// const checkFirstNameValid = () => {
+//   const formDataTag = firstNameTag.parentNode
+//   if (checkName(firstNameTag.value)) {
+//      formDataTag.removeAttribute("data-error-visible")
+//      formDataTag.removeAttribute("data-error")
+//   } else {   
+//     formDataTag.setAttribute("data-error-visible", "true")
+//     formDataTag.setAttribute("data-error", MIN_CHAR)
+//   }
+// }
 
-function checkFirstNameValid() {
-  const formDataTag = firstNameTag.parentNode
+const checkFirstNameValid = () => {
   if (checkName(firstNameTag.value)) {
-     formDataTag.removeAttribute("data-error-visible")
-     formDataTag.removeAttribute("data-error")
+     deleteErrorMsg(firstNameTag)
   } else {   
-    formDataTag.setAttribute("data-error-visible", "true")
-    formDataTag.setAttribute("data-error", MIN_CHAR)
+    setErrorMsg(firstNameTag, MIN_CHAR)
   }
 }
 
-function checkLastNameValid() {
-  const formDataTag = lastNameTag.parentNode
+// const checkLastNameValid = () => {
+//   const formDataTag = lastNameTag.parentNode
+//   if (checkName(lastNameTag.value)) {
+//     formDataTag.removeAttribute("data-error-visible")
+//     formDataTag.removeAttribute("data-error")
+//   } else {
+//     formDataTag.setAttribute("data-error-visible", "true")
+//     formDataTag.setAttribute("data-error", MIN_CHAR)
+//   }
+// }
+
+const checkLastNameValid = () => {
   if (checkName(lastNameTag.value)) {
-    formDataTag.removeAttribute("data-error-visible")
-    formDataTag.removeAttribute("data-error")
+    deleteErrorMsg(lastNameTag)
   } else {
-    formDataTag.setAttribute("data-error-visible", "true")
-    formDataTag.setAttribute("data-error", MIN_CHAR)
+    setErrorMsg(lastNameTag, MIN_CHAR)
   }
 }
 
-function checkEmailValid() {
+const checkEmailValid = () => {
   const formDataTag = emailTag.parentNode
   if (checkEmail(emailTag.value)) {
     formDataTag.removeAttribute("data-error-visible")
@@ -220,50 +208,65 @@ let form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  let firstName = firstNameTag.value;
-  let lastName = lastNameTag.value;
-  let email = emailTag.value;
-  let birthday = birthdateTag.value;
-  let quantity = quantityTag.value;
+  const firstNameValue = firstNameTag.value;
+  const lastNameValue = lastNameTag.value;
+  const emailValue = emailTag.value;
+  const birthdayValue = birthdateTag.value;
+  const quantityValue = quantityTag.value;
 
   /************************************************************** 
-   * NON! ces tests doivent se faire directement sur 
-   * le champs concerné & non à la validation du formulaire!!! 
-   * ***************************************************************/
-  // checkName(lastName);
-  // checkEmail(email);
-  // checkRadioBtn(radioBtnList); // ok, value is login'
-  checkFirstNameValid(firstName)
-  checkLastNameValid(lastName)
-  checkEmailValid(email)
-  checkBirthDateNotEmpty(birthday)
+   * confirm submit success form
+   **************************************************************/
+  checkFirstNameValid(firstNameValue)
+  checkLastNameValid(lastNameValue)
+  checkEmailValid(emailValue)
+  checkBirthDateNotEmpty(birthdayValue)
+  checkQuantityValue(quantityValue)
   checkRadioBtn()
-  checkQuantityValue(quantity)
-  // isCheckboxSelected(checkbox1.checked)
-  // checkIsCheckBoxSelected()
-  
+  checkTermsConditions()
+
+  // "return validate()" fn deleted from onSubmit HTML form attribut
+  //return validate();
   
 
-  /*****************************************************
-   * OK CI DESSOUS on vérifie chaque champ respecte 
-   * les règles pour lancer la soumission du form 
-   * ***************************************************/
-  if ( /*
-      checkName(firstName) && 
-      checkName(lastName) && 
-      checkEmail(email) && 
-      checkRadioBtn() && 
-      checkBirthDateNotEmpty(birthday) */
-      log
-    ) {
+  if ( checkName(firstNameValue) 
+      && checkName(lastNameValue) 
+      && checkEmail(emailValue) 
+      && checkBirthDate(birthdayValue) 
+      && checkQuantity(quantityValue)
+      && checkRadioBtn() 
+      && checkTermsConditions()
+    ) {   
      alert(SUCCES_SUBMIT);
      console.log(SUCCES_SUBMIT);
-   } else {
-     console.log(ERROR);
+     return true;
    }
-})
+   console.log(ERROR);
+   return false;
+  }
+)
 
-/**** check on input field *****/
-// firstNameTag.addEventListener("change", () => {
-//   console.log(checkName(firstNameTag.value)); // ok, it runs, return true if valide & false if error 
-// })
+/** TODO ** */
+/*
+create fn to : 
+  + remove attribute
+  + set attribute
+
+on date rules validation, add an error msg if date selected > today !
+*/
+
+function deleteErrorMsg(tag) {
+  const formDataTag = tag.parentNode;
+  formDataTag.removeAttribute("data-error-visible");
+  formDataTag.removeAttribute("data-error");
+}
+
+function setErrorMsg(tag, msg) {
+  const formDataTag = tag.parentNode;
+  formDataTag.setAttribute("data-error-visible", "true")
+  formDataTag.setAttribute("data-error", msg)
+}
+
+/**
+ * "onsubmit" HTMLElement : return validate()
+ */
