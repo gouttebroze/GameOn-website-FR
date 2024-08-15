@@ -38,7 +38,7 @@ let quantityTag = document.querySelector("#quantity");
 let checkbox1 = document.getElementById("checkbox1");
 let radioBtnList = document.querySelectorAll('input[type=radio]');
 
-const SUCCES_SUBMIT = "Merci ! Votre réservation a été reçue.";
+const SUCCESS_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const EMAIL_FORMAT_VALID = "Veuillez entrer une adresse mail valide.";
 const NUMERIQUE_VALUE = "Veuillez saisir une valeur numérique inférieure ou égale à 99 pour le nombre de concours.";
@@ -53,7 +53,8 @@ let email = emailTag.value;
 let quantity = quantityTag.value;
 
 /**
- * errors management with if/else conditions
+ * firstName & lastName field form
+ * fn that check if "name" length is higher or equal to 2 characters
  * @param {string} name 
  * @returns 
  */
@@ -76,6 +77,11 @@ const checkEmail = (email) => {
   return false;
 }
 
+/**
+ * fn that check if numbers of tournaments is lower or equals to 99
+ * @param {number} totalQuantity 
+ * @returns 
+ */
 const checkQuantity = (totalQuantity) => {
   if ((totalQuantity !== "") && (totalQuantity <= 99)) { // ? if (isNaN(quantityTag.value))
     return true;
@@ -84,35 +90,13 @@ const checkQuantity = (totalQuantity) => {
   }
 }
 
-const checkQuantityValue = () => {
-  const formDataTag = quantityTag.parentNode;
-  if (checkQuantity(quantityTag.value)) {
-    formDataTag.removeAttribute("data-error-visible");
-    formDataTag.removeAttribute("data-error");    
-  } else {
-    formDataTag.setAttribute("data-error-visible", "true");
-    formDataTag.setAttribute("data-error", NUMERIQUE_VALUE);
-  }
-}
+
 
 const checkBirthDate = (birthdate) => {
   if ((birthdate === "") || (birthdate === "mm/dd/yyyy")) {
     return false;
   } else {
     return true;
-  }
-}
-
-const checkBirthDateNotEmpty = () => {
-  // const formDataTag = birthdateTag.parentNode;
-  if (checkBirthDate(birthdateTag.value)) {
-    deleteErrorMsg(birthdateTag);
-    // formDataTag.removeAttribute("data-error-visible");
-    // formDataTag.removeAttribute("data-error");
-  } else {
-    setErrorMsg(birthdateTag, BIRTHDATE_REQUIRED);
-    // formDataTag.setAttribute("data-error-visible", "true");
-    // formDataTag.setAttribute("data-error", BIRTHDATE_REQUIRED);
   }
 }
 
@@ -132,23 +116,17 @@ const checkRadioBtn = () => {
   return false;
 }
 
+/**
+ * fn that check if "terms & conditions" checkbox is checked or not
+ * @param {boolean} checkbox 
+ * @returns 
+ */
 const isCheckboxSelected = (checkbox) => {
   if (!checkbox.checked) {
     console.log("Les conditions doivent être acceptés.");
     return false;
   } else {
     return true;
-  }
-}
-
-const checkTermsConditions = () => {
-  if (checkbox1.checked) {
-    deleteErrorMsg(checkbox1);
-    return true;
-  } else {
-    console.log(TERMS_CONDITIONS_AGREE);
-    setErrorMsg(checkbox1, TERMS_CONDITIONS_AGREE);
-    return false;
   }
 }
 
@@ -201,6 +179,41 @@ const checkEmailValid = () => {
   }
 }
 
+const checkBirthDateNotEmpty = () => {
+  // const formDataTag = birthdateTag.parentNode;
+  if (checkBirthDate(birthdateTag.value)) {
+    deleteErrorMsg(birthdateTag);
+    // formDataTag.removeAttribute("data-error-visible");
+    // formDataTag.removeAttribute("data-error");
+  } else {
+    setErrorMsg(birthdateTag, BIRTHDATE_REQUIRED);
+    // formDataTag.setAttribute("data-error-visible", "true");
+    // formDataTag.setAttribute("data-error", BIRTHDATE_REQUIRED);
+  }
+}
+
+const checkQuantityValue = () => {
+  const formDataTag = quantityTag.parentNode;
+  if (checkQuantity(quantityTag.value)) {
+    formDataTag.removeAttribute("data-error-visible");
+    formDataTag.removeAttribute("data-error");    
+  } else {
+    formDataTag.setAttribute("data-error-visible", "true");
+    formDataTag.setAttribute("data-error", NUMERIQUE_VALUE);
+  }
+}
+
+const checkTermsConditions = () => {
+  if (checkbox1.checked) {
+    deleteErrorMsg(checkbox1);
+    return true;
+  } else {
+    console.log(TERMS_CONDITIONS_AGREE);
+    setErrorMsg(checkbox1, TERMS_CONDITIONS_AGREE);
+    return false;
+  }
+}
+
 /**
  * form validation
  */
@@ -229,7 +242,7 @@ form.addEventListener("submit", (e) => {
   //return validate();
   
 
-  if ( checkName(firstNameValue) 
+  if (checkName(firstNameValue) 
       && checkName(lastNameValue) 
       && checkEmail(emailValue) 
       && checkBirthDate(birthdayValue) 
@@ -237,8 +250,8 @@ form.addEventListener("submit", (e) => {
       && checkRadioBtn() 
       && checkTermsConditions()
     ) {   
-     alert(SUCCES_SUBMIT);
-     console.log(SUCCES_SUBMIT);
+     alert(SUCCESS_SUBMIT);
+     console.log(SUCCESS_SUBMIT);
      return true;
    }
    console.log(ERROR);
