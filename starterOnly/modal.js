@@ -107,15 +107,15 @@ const checkBirthDate = (birthdate) => {
 const checkRadioBtn = () => {
   for (let i = 0; i < radioBtnList.length; i++) {
     if (radioBtnList[i].checked) {
-      console.log(radioBtnList[i].checked); // true
-      console.log(radioBtnList[radioBtnList.length - 1]);
-      radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error-visible");
-      radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error");
+      deleteErrorMsg(radioBtnList[radioBtnList.length - 1]);
+      // radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error-visible");
+      // radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error");
       return true;
     } 
   }
-  radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error-visible", "true") // change attribute value to true
-  radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error", SELECT_OPTION)
+  // radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error-visible", "true") // change attribute value to true
+  // radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error", SELECT_OPTION)
+  setErrorMsg(radioBtnList[radioBtnList.length - 1], SELECT_OPTION);
   return false;
 }
 
@@ -172,13 +172,15 @@ const checkLastNameValid = () => {
 }
 
 const checkEmailValid = () => {
-  const formDataTag = emailTag.parentNode
+  // const formDataTag = emailTag.parentNode
   if (checkEmail(emailTag.value)) {
-    formDataTag.removeAttribute("data-error-visible")
-    formDataTag.removeAttribute("data-error")
+    deleteErrorMsg(emailTag);
+    // formDataTag.removeAttribute("data-error-visible")
+    // formDataTag.removeAttribute("data-error")
   } else {
-    formDataTag.setAttribute("data-error-visible", "true")
-    formDataTag.setAttribute("data-error", EMAIL_FORMAT_VALID)
+    setErrorMsg(emailTag, EMAIL_FORMAT_VALID);
+    // formDataTag.setAttribute("data-error-visible", "true")
+    // formDataTag.setAttribute("data-error", EMAIL_FORMAT_VALID)
   }
 }
 
@@ -196,13 +198,15 @@ const checkBirthDateNotEmpty = () => {
 }
 
 const checkQuantityValue = () => {
-  const formDataTag = quantityTag.parentNode;
+  // const formDataTag = quantityTag.parentNode;
   if (checkQuantity(quantityTag.value)) {
-    formDataTag.removeAttribute("data-error-visible");
-    formDataTag.removeAttribute("data-error");    
+    deleteErrorMsg(quantityTag);
+    // formDataTag.removeAttribute("data-error-visible");
+    // formDataTag.removeAttribute("data-error");    
   } else {
-    formDataTag.setAttribute("data-error-visible", "true");
-    formDataTag.setAttribute("data-error", NUMERIQUE_VALUE);
+    setErrorMsg(quantityTag, NUMERIQUE_VALUE);
+    // formDataTag.setAttribute("data-error-visible", "true");
+    // formDataTag.setAttribute("data-error", NUMERIQUE_VALUE);
   }
 }
 
@@ -217,13 +221,21 @@ const checkTermsConditions = () => {
   }
 }
 
-/**
+/*******************
  * form validation
- */
+ *******************/
 let form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
 
+// listen on "submit" event on HTML form
+form.addEventListener("submit", (e) => {
+
+  /**
+   * as we don't want to reload page on submit HTML form, 
+   * we use the "preventDefault()" fn on submit event (called here "e") 
+   * to prevent submit form default comportement (that is to reload page)
+   */
+  e.preventDefault();
+  
   const firstNameValue = firstNameTag.value;
   const lastNameValue = lastNameTag.value;
   const emailValue = emailTag.value;
@@ -255,7 +267,7 @@ form.addEventListener("submit", (e) => {
      // TODO: change "resetForm()" to close modal fn
      resetForm(); // reset form if submit is successfull (??? SEE if I KEEP IT ???)
      closeModalFn(); // call fn to close modal if form is validate
-     
+
      return true;
    }
    console.log(ERROR);
@@ -284,7 +296,7 @@ function setErrorMsg(tag, msg) {
 
 /** TODO ** */
 /*
-  Close modal after form validation
+  - use "deleteErrorMsg()" & "setErrorMsg()" on every fn
 */
 
 /**
