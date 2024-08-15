@@ -251,7 +251,11 @@ form.addEventListener("submit", (e) => {
     ) {   
      alert(SUCCESS_SUBMIT);
      console.log(SUCCESS_SUBMIT);
-     resetForm(); // use "resetForm()" fn to reset form if submit is successfull
+
+     // TODO: change "resetForm()" to close modal fn
+     resetForm(); // reset form if submit is successfull (??? SEE if I KEEP IT ???)
+     closeModalFn(); // call fn to close modal if form is validate
+     
      return true;
    }
    console.log(ERROR);
@@ -277,11 +281,6 @@ function setErrorMsg(tag, msg) {
   formDataTag.setAttribute("data-error-visible", "true")
   formDataTag.setAttribute("data-error", msg)
 }
-
-document.querySelector(".close").addEventListener("click", () => {
-  
-})
-
 
 /** TODO ** */
 /*
