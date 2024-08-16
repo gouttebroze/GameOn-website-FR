@@ -35,10 +35,14 @@ function successSubmit() {
   const div = document.createElement("div");
   const content = document.createTextNode("test ajout contenu div");
   div.appendChild(content); // ajoute le noeud text à la div
+  div.style.color = "red"; // change la couleur du texte (noir par défault)
   console.log(div);
 
   const modal = document.querySelector(".content"); // ajout du nouvel élément ds le DOM
-  modalbg.insertBefore(div, modal);
+  const modalBody = document.querySelector(".modal-body"); // ajout du nouvel élément ds le DOM
+  // modalbg.insertBefore(div, modal); // ajout de la div ds la modale
+  modal.insertBefore(div, modalBody); // ajout de la div ds la modale
+
   // div.className = "success-msg";
   // modalbg.classList.remove("modal-body");
 }
