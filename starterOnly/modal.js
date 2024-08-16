@@ -30,6 +30,12 @@ function closeModalFn() {
 // close modal on click arrow btn 
 closeModal.addEventListener("click", closeModalFn)
 
+function successSubmit() {
+  const div = document.createElement("div");
+  div.className = "success-msg";
+  modalbg.classList.remove("modal-body")
+}
+
 /******************************
  *  check inputs form values 
  ******************************/
@@ -114,13 +120,9 @@ const checkRadioBtn = () => {
   for (let i = 0; i < radioBtnList.length; i++) {
     if (radioBtnList[i].checked) {
       deleteErrorMsg(radioBtnList[radioBtnList.length - 1]);
-      // radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error-visible");
-      // radioBtnList[radioBtnList.length - 1].parentNode.removeAttribute("data-error");
       return true;
     } 
   }
-  // radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error-visible", "true") // change attribute value to true
-  // radioBtnList[radioBtnList.length - 1].parentNode.setAttribute("data-error", SELECT_OPTION)
   setErrorMsg(radioBtnList[radioBtnList.length - 1], SELECT_OPTION);
   return false;
 }
@@ -267,9 +269,9 @@ form.addEventListener("submit", (e) => {
       && checkRadioBtn() 
       && checkTermsConditions()
     ) {   
-     alert(SUCCESS_SUBMIT);
+     //alert(SUCCESS_SUBMIT);
      console.log(SUCCESS_SUBMIT);
-
+     successSubmit();
      // TODO: change "resetForm()" to close modal fn
      resetForm(); // reset form if submit is successfull (??? SEE if I KEEP IT ???)
      closeModalFn(); // call fn to close modal if form is validate

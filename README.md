@@ -180,48 +180,10 @@ function verifierChamp(champ) { // fonction qui prend un champ en paramètre
 
 ### TODO JS
 
-```js
-// récupérer les balises html
-
-// créer fonctions de validation des champs
-function checkName(name) {
-    // + placer la méthode "trim()" pr gérer les espaces vides
-    if (name.length >= 2) { // si name.length >= 2 ou inverse ?     
-        return true;
-    } 
-    // message d'erreur (méthode "alert()"?)
-    alert("message d'erreur: ... mettre + de 2 char.")
-    return false;
-}
-
-// fn mail valide
-function emailVerifed(email) {
-    // use email regexp
-    let emailRegExp = new RegExp(/[a-z._-]+@[a-z._-]+\.[a-z._-]+/gm);
-}
-
-// fn champ numérique
-function checkNumberType(quantity) {}
-
-// fn validation champ date naissance rempli
-function birthdateNotEmpty(birthdate) {}
-
-// fn validation boutton radio séléctionné
-function checkRadioBtnSelected(radioBtn) {}
-
-// fn validation checkbox cochée
-function checkbox1Selected(checkbox1) {}
-
-form.addEventlistener("submit", (e) => {
-    e.preventDefault()
-
-    // validation form - message confirmation 
-    if (checkName(fistName) && checkName(lastName) && emailVerifed(email)) { // & all others functions
-        alert("Merci ! Votre réservation a été reçue.");
-    }
-})
-
-// implémenter la persistance des textes des champs
-
-// fermer la modal ...
-```
+* implémenter la modale avec msg "success"
+  * viser element modale
+  * supprimer classe du formulaire pour l'effacer et laisser la modale vide
+  * creer un element type `div` avec methode `createElement`
+  * viser cet element
+  * ajouter text (`textContent` ou `innerHTML`)
+* voir responsive (sur mobile, mettre `nav` en `position: fixed` et voir style correspondand (berger menu rouge))
