@@ -33,18 +33,19 @@ closeModal.addEventListener("click", closeModalFn)
 function successSubmit() {
   
   const div = document.createElement("div");
-  const content = document.createTextNode("test ajout contenu div");
+  const content = document.createTextNode(SUBMIT_MSG);
+  // le problème est que je perds tout le style lié à la modal, tel que sa taille ou le style du text... 
   div.appendChild(content); // ajoute le noeud text à la div
-  div.style.color = "red"; // change la couleur du texte (noir par défault)
+  div.style.color = "white"; // change la couleur du texte (noir par défault)
   console.log(div);
 
   const modal = document.querySelector(".content"); // ajout du nouvel élément ds le DOM
   const modalBody = document.querySelector(".modal-body"); // ajout du nouvel élément ds le DOM
-  // modalbg.insertBefore(div, modal); // ajout de la div ds la modale
   modal.insertBefore(div, modalBody); // ajout de la div ds la modale
 
-  // div.className = "success-msg";
-  // modalbg.classList.remove("modal-body");
+  const form = document.querySelector("form"); // cible l'élément HTML "form"
+  modalBody.removeChild(form); // supprime "form", le noeud enfant de "modal-body"
+
 }
 
 /******************************
@@ -66,6 +67,7 @@ const SELECT_OPTION = "Vous devez choisir une option.";
 const TERMS_CONDITIONS_AGREE = "Vous devez vérifier que vous acceptez les termes et conditions.";
 const BIRTHDATE_REQUIRED = "Vous devez entrer votre date de naissance.";
 const ERROR = "Erreur..."
+const SUBMIT_MSG = "Merci pour votre inscription.";
 
 let firstName = firstNameTag.value;
 let lastName = lastNameTag.value;
