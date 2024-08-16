@@ -31,9 +31,16 @@ function closeModalFn() {
 closeModal.addEventListener("click", closeModalFn)
 
 function successSubmit() {
+  
   const div = document.createElement("div");
-  div.className = "success-msg";
-  modalbg.classList.remove("modal-body")
+  const content = document.createTextNode("test ajout contenu div");
+  div.appendChild(content); // ajoute le noeud text à la div
+  console.log(div);
+
+  const modal = document.querySelector(".content"); // ajout du nouvel élément ds le DOM
+  modalbg.insertBefore(div, modal);
+  // div.className = "success-msg";
+  // modalbg.classList.remove("modal-body");
 }
 
 /******************************
@@ -274,7 +281,7 @@ form.addEventListener("submit", (e) => {
      successSubmit();
      // TODO: change "resetForm()" to close modal fn
      resetForm(); // reset form if submit is successfull (??? SEE if I KEEP IT ???)
-     closeModalFn(); // call fn to close modal if form is validate
+     // closeModalFn(); // call fn to close modal if form is validate
 
      return true;
    }

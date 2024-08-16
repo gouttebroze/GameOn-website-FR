@@ -181,7 +181,7 @@ function verifierChamp(champ) { // fonction qui prend un champ en paramètre
 ### TODO JS
 
 * implémenter la modale avec msg "success"
-  * viser element modale
+  * viser element modale (classe `.content`)
   * supprimer classe du formulaire pour l'effacer et laisser la modale vide
   * creer un element type `div` avec methode `createElement`
   * viser cet element
