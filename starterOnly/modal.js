@@ -31,17 +31,47 @@ function closeModalFn() {
 closeModal.addEventListener("click", closeModalFn)
 
 function successSubmit() {
-  
-  const div = document.createElement("div");
-  const content = document.createTextNode(SUBMIT_MSG);
-  // le problème est que je perds tout le style lié à la modal, tel que sa taille ou le style du text... 
-  div.appendChild(content); // ajoute le noeud text à la div
-  div.style.color = "white"; // change la couleur du texte (noir par défault)
-  console.log(div);
+  /**
+   * voir `previousSibling()` & `nextSibling()` pr viser le noeud précédent ou suivant...
+   * voir `insertAdjacentHTML()` pr insérer noeud text ds DOM (méthode à privilégier à innerHTML(), voir doc.)
+   * 
+   * pr concerver le bouton rouge de la modal, 
+   * il faut supprimer (ou masquer) tous les éléments du form 
+   * à l'exeception du dernier qui est ce bouton, un <input type="button" />
+   * 
+   * si les éléments sont supprimés, ce qui réduit la taille de la modal, 
+   * on pt facilement ajuster avec une valeur > à 200px sur le padding-top & padding-bottom 
+   * de la classe "modal-body"
+   * 
+   * pt etre mettre 1 classe .hide (en display: none) en plus sur la modale...
+   */
+  // création des éléments
+  const DIV = document.createElement("div");
+  const BTN = document.createElement("button");
+  // création des contenus texte de la div et du boutton
+  const DIVContent = document.createTextNode(SUBMIT_MSG);
+  const BTNContent = document.createTextNode("Fermer");
+
+  // le problème est que je perds tout le style lié à la modale, tel que sa taille ou le style du texte... 
+  DIV.appendChild(DIVContent); // ajoute le noeud text à la div
+  BTN.appendChild(BTNContent);
+
+  DIV.style.color = "white"; // change la couleur du texte (noir par défault)
+  DIV.style.fontSize = "36px";
+  DIV.style.fontFamily = '"DM Sans", Arial, Helvetica, sans-serif';
+  DIV.style.fontWeight = "400";
+
+  console.log(DIV);
+
+  DIV.classList.add("success-modal");
+  BTN.classList.add("btn-signup");
 
   const modal = document.querySelector(".content"); // ajout du nouvel élément ds le DOM
-  const modalBody = document.querySelector(".modal-body"); // ajout du nouvel élément ds le DOM
-  modal.insertBefore(div, modalBody); // ajout de la div ds la modale
+  const modalBody = document.querySelector(".modal-body");
+  
+  // modal.classList.add("success-content");
+  modal.insertBefore(DIV, modalBody); // ajout de la div ds la modale
+  modal.insertBefore(BTN,modalBody);
 
   const form = document.querySelector("form"); // cible l'élément HTML "form"
   modalBody.removeChild(form); // supprime "form", le noeud enfant de "modal-body"
