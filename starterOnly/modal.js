@@ -46,35 +46,42 @@ function successSubmit() {
    * pt etre mettre 1 classe .hide (en display: none) en plus sur la modale...
    */
   // création des éléments
-  const DIV = document.createElement("div");
-  const BTN = document.createElement("button");
+  //const DIV = document.createElement("div"); // div général pr contenir titre & boutton
+  //const H3 = document.createElement("h3"); // création titre
+  //const BTN = document.createElement("button"); // création btn "fermer"
   // création des contenus texte de la div et du boutton
-  const DIVContent = document.createTextNode(SUBMIT_MSG);
-  const BTNContent = document.createTextNode("Fermer");
+  //const DIVContent = document.createTextNode("");
+  //const BTNContent = document.createTextNode("");
 
   // le problème est que je perds tout le style lié à la modale, tel que sa taille ou le style du texte... 
-  DIV.appendChild(DIVContent); // ajoute le noeud text à la div
-  BTN.appendChild(BTNContent);
+  //DIV.appendChild(DIVContent); // ajoute le noeud text à la div
+  //BTN.appendChild(BTNContent);
 
-  DIV.style.color = "white"; // change la couleur du texte (noir par défault)
-  DIV.style.fontSize = "36px";
-  DIV.style.fontFamily = '"DM Sans", Arial, Helvetica, sans-serif';
-  DIV.style.fontWeight = "400";
 
-  console.log(DIV);
+  
 
-  DIV.classList.add("success-modal");
-  BTN.classList.add("btn-signup");
+  //DIV
+  //BTN.classList.add("btn-signup");
 
   const modal = document.querySelector(".content"); // ajout du nouvel élément ds le DOM
   const modalBody = document.querySelector(".modal-body");
   
   // modal.classList.add("success-content");
-  modal.insertBefore(DIV, modalBody); // ajout de la div ds la modale
-  modal.insertBefore(BTN,modalBody);
+  //modal.insertBefore(DIV, modalBody); // ajout de la div ds la modale
+  //modal.insertBefore(BTN,modalBody);
 
   const form = document.querySelector("form"); // cible l'élément HTML "form"
   modalBody.removeChild(form); // supprime "form", le noeud enfant de "modal-body"
+
+  /* DIV.insertAdjacentHTML("afterbegin", '<h3>Merci pour votre inscription.</h3>');
+  BTN.insertAdjacentHTML("afterbegin", '<button class="btn-signup button">Fermer.</button>');
+  */
+ 
+  modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>');
+  const DIV = document.querySelector("#success-div");
+  DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn">Fermer.</button>'); 
+  DIV.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
+
 
 }
 
