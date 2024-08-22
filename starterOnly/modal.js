@@ -14,6 +14,7 @@ const formData = document.querySelectorAll(".formData");
 
 const closeModal = document.querySelector(".close");
 
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -29,6 +30,7 @@ function closeModalFn() {
 
 // close modal on click arrow btn 
 closeModal.addEventListener("click", closeModalFn)
+
 
 function successSubmit() {
   /**
@@ -79,10 +81,14 @@ function successSubmit() {
  
   modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>');
   const DIV = document.querySelector("#success-div");
-  DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn">Fermer.</button>'); 
+  DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn close-btn">Fermer.</button>'); 
   DIV.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
 
-
+  const closeModalBtn = document.querySelector(".close-btn");
+  /**
+   * to close success modal on button click
+   */
+  closeModalBtn.addEventListener("click", closeModalFn)
 }
 
 /******************************
