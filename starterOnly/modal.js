@@ -31,22 +31,11 @@ function closeModalFn() {
 // close modal on click arrow btn 
 closeModal.addEventListener("click", closeModalFn)
 
-
+/**
+ * fn qui lance le message de success d'envoi du formulaire
+ */
 function successSubmit() {
-  /**
-   * voir `previousSibling()` & `nextSibling()` pr viser le noeud précédent ou suivant...
-   * voir `insertAdjacentHTML()` pr insérer noeud text ds DOM (méthode à privilégier à innerHTML(), voir doc.)
-   * 
-   * pr concerver le bouton rouge de la modal, 
-   * il faut supprimer (ou masquer) tous les éléments du form 
-   * à l'exeception du dernier qui est ce bouton, un <input type="button" />
-   * 
-   * si les éléments sont supprimés, ce qui réduit la taille de la modal, 
-   * on pt facilement ajuster avec une valeur > à 200px sur le padding-top & padding-bottom 
-   * de la classe "modal-body"
-   * 
-   * pt etre mettre 1 classe .hide (en display: none) en plus sur la modale...
-   */
+  
   // création des éléments
   //const DIV = document.createElement("div"); // div général pr contenir titre & boutton
   //const H3 = document.createElement("h3"); // création titre
@@ -54,40 +43,27 @@ function successSubmit() {
   // création des contenus texte de la div et du boutton
   //const DIVContent = document.createTextNode("");
   //const BTNContent = document.createTextNode("");
-
-  // le problème est que je perds tout le style lié à la modale, tel que sa taille ou le style du texte... 
   //DIV.appendChild(DIVContent); // ajoute le noeud text à la div
   //BTN.appendChild(BTNContent);
-
-
-  
-
-  //DIV
-  //BTN.classList.add("btn-signup");
-
-  const modal = document.querySelector(".content"); // ajout du nouvel élément ds le DOM
-  const modalBody = document.querySelector(".modal-body");
-  
   // modal.classList.add("success-content");
   //modal.insertBefore(DIV, modalBody); // ajout de la div ds la modale
   //modal.insertBefore(BTN,modalBody);
 
+  /* cible la modale */
+  const modalBody = document.querySelector(".modal-body");
+
   const form = document.querySelector("form"); // cible l'élément HTML "form"
   modalBody.removeChild(form); // supprime "form", le noeud enfant de "modal-body"
 
-  /* DIV.insertAdjacentHTML("afterbegin", '<h3>Merci pour votre inscription.</h3>');
-  BTN.insertAdjacentHTML("afterbegin", '<button class="btn-signup button">Fermer.</button>');
-  */
- 
+  /* création du HTML, une div qui contient h3 & boutton */
   modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>');
   const DIV = document.querySelector("#success-div");
-  DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn close-btn">Fermer.</button>'); 
+  DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn close-btn">Fermer</button>'); 
   DIV.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
 
   const closeModalBtn = document.querySelector(".close-btn");
-  /**
-   * to close success modal on button click
-   */
+   
+  /* écoute le clic du boutton */
   closeModalBtn.addEventListener("click", closeModalFn)
 }
 

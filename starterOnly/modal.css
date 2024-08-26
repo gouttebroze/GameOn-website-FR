@@ -34,7 +34,8 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  /* margin: 3.5%; */
+  padding: 3.5%;
 }
 
 .header-logo {
@@ -74,10 +75,10 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav {
+  /* .topnav {
     position: fixed;
     z-index: 999;
-  }
+  } */
 
   /* main {
     padding-top: 30px;
@@ -112,17 +113,7 @@ img {
 
 
 
-@media screen and (max-width: 540px) {
-  .topnav a {
-    display: none;
-  }
 
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-}
 
 main {
   font-size: 130%;
@@ -183,7 +174,7 @@ main {
 .bground {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   height: 100%;
@@ -624,4 +615,38 @@ footer {
 .success-btn {
   padding-left: 46px;
   padding-right: 46px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 540px) {
+  .content {
+    /* margin: 15% auto 
+    ;
+    margin-top: 70px;*/
+    margin: 70px 0 0 0;
+  }
+
+  main {
+    margin-top: 70px;
+  }
+
+  .topnav {
+    position: fixed;
+    background-color: #fff;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .topnav a {
+    display: none;
+  }
+
+  .topnav a.icon {
+    float: right;
+    display: block;
+    margin-top: -15px;
+  }
+
+  .bground {}
 }
