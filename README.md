@@ -187,3 +187,35 @@ function verifierChamp(champ) { // fonction qui prend un champ en paramètre
   * viser cet element
   * ajouter text (`textContent` ou `innerHTML`)
 * voir responsive (sur mobile, mettre `nav` en `position: fixed` et voir style correspondand (berger menu rouge))
+
+## A propos des commentaires & JSdoc
+
+* l'objectif des commentaire est plus de rajouter du contexte & d'expliquer pourquoi tel ligne a été rajoutée, que d'expliquer ce que fais tel ligne, ce qui doit être facilement compris en lisant le code 
+  *(et un code propre est un code simple à lire et à comprendre, rappelons que le code s'écrit en suivant les bonnes pratique de programmation, telle que les concepts KISS & DRY, simple & sans répétition)*
+  * Mais pourquoi? *tout d'abord, il convient de définir pour qui on écrit du code, si on veut comprendre l'intérêt d'écrire un code propre (la simplicité est un des aspects du code propre). On écrit du code pour les humains, non pas pour des machines...*
+                  *un code nous parait comprehensible après l'avoir écrit, mais en général, il devient bien moins simple si on le relit 6 mois plus tard...*
+
+# TODO < passage soutenance
+
+## SUGGESTIONS
+
+* suggestion de nouvelles features, amélioration ou modification de features actuelles ...
+
+* **règles de validation**: 
+
+  * au niveau du champs des dates de naissance, il serait judicieux d'ajouter de nouvelles contraintes de validation.
+
+  * ajouter contraintes logiques: *impossibilité de sélectionner une date correspondante ou ultérieur au jour actuel*
+
+  * **QUESTION**: 
+
+    + *vérifier s'il existe d'autres contraintes au niveau de la date de naissance, sur l'âge des participants...*
+  
+    + *existe-t-il des contraintes d'âge au niveau des inscriptions?* 
+    *un age minimum?* *ou maximum?* est-il requis? 
+     
+    * REGLEMENT DU TOURNOIS & DES JEUX: 
+      
+      *le tournois a-t-il des règles qui pourraient s'appliquer à certaines tranches d'âge plutôt qu'à d'autres?*
+     
+      *les différences d'âges entrainent-elle des changements sur les modalités d'inscription? ou sur les règles du tournois?*

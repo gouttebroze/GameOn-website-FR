@@ -8,7 +8,17 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
+/* 
+ * on cible certaines balises HTML à partir de leur sélecteur CSS, 
+ * avec le tag name, avec l'id, avec la classe 
+ * ou en combinant ces sélecteurs (tel `...querySelector("tagName#idName.className")`)
+ * ici on utilise les classes des balises HTML comme sélecteur CSS 
+ * */
+
+// ci-dessous, on cible une balise <div> du HTML ayant la classe "bground" 
+// & on stock cette sélection de balise dans une variable (de type constante, elle ne pourra être modifié) nommée "modalbg"
+// ce qui ns permet de réutiliser notre balise ciblé facilement & simplement
+const modalbg = document.querySelector(".bground"); 
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
@@ -19,11 +29,21 @@ const closeModal = document.querySelector(".close");
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
+/**
+ * fn lance la modale du formulaire
+ */
 function launchModal() {
   modalbg.style.display = "block";
 }
 
-// close modal form
+/* 
+ * la modale est ouverte ou fermée selon la valeur affectée 
+ * à la propriété "display" ("block" ouvre, "none" ferme)
+*/
+
+/**
+ * fn entraîne la fermeture de la modale
+ */
 function closeModalFn() {
   modalbg.style.display = "none";
 }
@@ -36,28 +56,49 @@ closeModal.addEventListener("click", closeModalFn)
  */
 function successSubmit() {
   
-  // création des éléments
-  //const DIV = document.createElement("div"); // div général pr contenir titre & boutton
-  //const H3 = document.createElement("h3"); // création titre
-  //const BTN = document.createElement("button"); // création btn "fermer"
-  // création des contenus texte de la div et du boutton
-  //const DIVContent = document.createTextNode("");
-  //const BTNContent = document.createTextNode("");
-  //DIV.appendChild(DIVContent); // ajoute le noeud text à la div
-  //BTN.appendChild(BTNContent);
-  // modal.classList.add("success-content");
-  //modal.insertBefore(DIV, modalBody); // ajout de la div ds la modale
-  //modal.insertBefore(BTN,modalBody);
-
-  /* cible la modale */
-  const modalBody = document.querySelector(".modal-body");
+  const modalBody = document.querySelector(".modal-body"); /* cible la modale */
 
   const form = document.querySelector("form"); // cible l'élément HTML "form"
+  
   modalBody.removeChild(form); // supprime "form", le noeud enfant de "modal-body"
 
-  /* création du HTML, une div qui contient h3 & boutton */
-  modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>');
+  /* création des éléments HTML, chargés de l'affichage 
+     du message de confirmation d'inscription, dans la modale,
+     avec un style CSS conforme au rendu visuel qu'on retrouve sur la maquette
+     nos el. HTML sont constituées: 
+        - d'un élément parent représenté par une division (une balise <div>) qui englobe, 
+        tel un wrapper les él. enfants constitués par:
+        - 2 éléments (enfants de la div wrapper):  
+          + 1 balise <h3> (contenant de msg de réussite)
+          + 1 btn "Fermer" (remplaçant le btn de soumission du form), 
+            (le click sur ce btn ferme la modale)
+  */ 
+ /**
+  * méthode "insertAdjacentHTML()" 
+  * permet d'insérer un noeud HTML ds le DOM en indiquant sa position
+  * prend la position en 1er paramètre 
+  * & un texte (string) au format HTML à inserer ds l'arbre DOM en second paramètre
+  */
+  modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>'); 
+  // création d'1 div inséré ds le DOM à la position "afterbegin", 
+  // soit juste à l'intérieur de l'element "modalBody", avant son premier enfant
+
+  // on cible la div créé via son #id et on stock cette sélection ds une variable nommée DIV
   const DIV = document.querySelector("#success-div");
+
+  /* 
+   * nous voulons créer une structure avec 
+   * 1 div parent, contenant, en 1er, un titre, & en 2e, un btn 
+   * 
+   * En utilisant le paramètre de position "afterbegin",
+   * On positionne & on insérer, à l'intérieur de notre nouvelle balise <div>, 
+   * une balise <button> (représente notre btn "Fermer")
+   * 
+   * puis, tjrs à l'intérieur de la <div> & avant son 1er enfant (soit la balise <button>)
+   * on insère une balise <h3> pr afficher notre msg de réussite,
+   * 
+   * ainsi notre balise <h3> se positionne en 1er, suivi de la balise <button>
+  */
   DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn close-btn">Fermer</button>'); 
   DIV.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
 
@@ -70,14 +111,27 @@ function successSubmit() {
 /******************************
  *  check inputs form values 
  ******************************/
+// on vise les balises du formulaire qu'on stock ds différentes variables
 let firstNameTag = document.querySelector("#first"); 
 let lastNameTag = document.querySelector("#last"); 
 let emailTag = document.querySelector("#email"); 
 let birthdateTag = document.querySelector("#birthdate"); 
 let quantityTag = document.querySelector("#quantity"); 
 let checkbox1 = document.getElementById("checkbox1");
+
+/**
+ * `querySelectorAll()` pr cibler plusieurs éléments
+ * Pour cibler une liste d'éléments, étant donnée que le `querySelector` ne permet de récupérer qu'une seule balise HTML, 
+ * on utilise la méthode `querySelectorAll()` qui fonctionne de la même façon 
+ * (sélecteur CSS ds les parenthèses), mais qui permet de récupérer un ensemble d'éléments.
+ *  
+ * Par la suite, on pourra parcourir l'ensemble à l'aide d'une boucle.
+ */
+// on vise plusieurs balises, ici les <input> type radio, (ou radio-btn)
 let radioBtnList = document.querySelectorAll('input[type=radio]');
 
+/* MESSAGES TEXT CONTENT */
+/* on stock le contenu de nos messages ds des variables */
 const SUCCESS_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const EMAIL_FORMAT_VALID = "Veuillez entrer une adresse mail valide.";
@@ -88,10 +142,19 @@ const BIRTHDATE_REQUIRED = "Vous devez entrer votre date de naissance.";
 const ERROR = "Erreur..."
 const SUBMIT_MSG = "Merci pour votre inscription.";
 
+/* INPUT VALUES */
+/* on stock les valeurs contenu ds les champs du formulaire */
 let firstName = firstNameTag.value;
 let lastName = lastNameTag.value;
 let email = emailTag.value;
 let quantity = quantityTag.value;
+
+/* 
+ * Création de fns permettant de vérifier différentes règles, 
+ * ces fns sont composables (pouvant être réutilisées ds différents champs, 
+ * si la condition à vérifiée est la même), 
+ * le paramètre "name" représente le contenu du champs du form. 
+ * */
 
 /**
  * firstName & lastName field form
@@ -203,6 +266,11 @@ const checkFirstNameValid = () => {
 //   }
 // }
 
+/**
+ * fn qui utilise une fn en condition créée précédament 
+ * pr vérifier le respect de règle (2 char. min.), avec en paramètre la valeur de l'input
+ * @returns fn de suppression et fn de création du msg d'erreur
+ */
 const checkLastNameValid = () => {
   if (checkName(lastNameTag.value)) {
     deleteErrorMsg(lastNameTag)
@@ -322,16 +390,38 @@ const resetForm = () => {
   document.querySelector("form").reset();
 }
 
+/**
+ * 
+ * @param {string} tag - Tag
+ */
 function deleteErrorMsg(tag) {
-  const formDataTag = tag.parentNode;
+  const formDataTag = tag.parentNode; // "parentNode" renvoie le parent du noeud spécifié, soit le parent du paramètre "tag"
   formDataTag.removeAttribute("data-error-visible");
   formDataTag.removeAttribute("data-error");
 }
 
+/**
+ * 
+ * @param {string} tag - Tag is a reference to a node, into the form,
+ * @param {string} msg - Msg is the error text content message
+ */
 function setErrorMsg(tag, msg) {
-  const formDataTag = tag.parentNode;
-  formDataTag.setAttribute("data-error-visible", "true")
-  formDataTag.setAttribute("data-error", msg)
+  const formDataTag = tag.parentNode; // cible le parent du noeud représenté par la variale "tag"
+  
+  /* "setAttribute()" : 
+        * si l'attribut existe déjà, met à jour la valeur de l'attribut
+        * sinon, ajoute un nouvel attribut, 
+        prend en 1er parametre le nom de l'attribut créé 
+        & en second paramètre sa valeur
+  */
+  formDataTag.setAttribute("data-error-visible", "true"); // change la valeur de l'attribut de false à true
+  
+  /* 
+  la valeur initial de l'attr. "data-error" correspond à une chaîne de charactère vide. 
+  avec la méthode `setAttribute()`, on va la modifier en attribuant une nouvelle valeur, nommée `msg`, à cet attribut 
+  cette nouvelle valeur `msg` représente les différents messages d'erreurs
+  */
+  formDataTag.setAttribute("data-error", msg); 
 }
 
 /** TODO ** */
