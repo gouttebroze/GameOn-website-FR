@@ -213,15 +213,10 @@ const checkLastNameValid = () => {
 }
 
 const checkEmailValid = () => {
-  // const formDataTag = emailTag.parentNode
   if (checkEmail(emailTag.value)) {
     deleteErrorMsg(emailTag);
-    // formDataTag.removeAttribute("data-error-visible")
-    // formDataTag.removeAttribute("data-error")
   } else {
     setErrorMsg(emailTag, EMAIL_FORMAT_VALID);
-    // formDataTag.setAttribute("data-error-visible", "true")
-    // formDataTag.setAttribute("data-error", EMAIL_FORMAT_VALID)
   }
 }
 
@@ -257,7 +252,6 @@ const checkTermsConditions = () => {
  *******************/
 let form = document.querySelector("form");
 
-// listen on "submit" event on HTML form
 form.addEventListener("submit", (e) => {
 
   e.preventDefault();
@@ -290,7 +284,7 @@ form.addEventListener("submit", (e) => {
 
      console.log(SUCCESS_SUBMIT);
      successSubmit();
-     resetForm(); // reset form if submit is successfull (??? SEE if I KEEP IT ???)
+     resetForm(); 
      return true;
    }
    console.log(ERROR);
@@ -321,18 +315,7 @@ function deleteErrorMsg(tag) {
 function setErrorMsg(tag, msg) {
   const formDataTag = tag.parentNode; // cible le parent du noeud représenté par la variale "tag"
   
-  /* "setAttribute()" : 
-        * si l'attribut existe déjà, met à jour la valeur de l'attribut
-        * sinon, ajoute un nouvel attribut, 
-        prend en 1er parametre le nom de l'attribut créé 
-        & en second paramètre sa valeur
-  */
-  formDataTag.setAttribute("data-error-visible", "true"); // change la valeur de l'attribut de false à true
-  
-  /* 
-  la valeur initial de l'attr. "data-error" correspond à une chaîne de charactère vide. 
-  avec la méthode `setAttribute()`, on va la modifier en attribuant une nouvelle valeur, nommée `msg`, à cet attribut 
-  cette nouvelle valeur `msg` représente les différents messages d'erreurs
-  */
+ // change la valeur de l'attribut
+  formDataTag.setAttribute("data-error-visible", "true"); 
   formDataTag.setAttribute("data-error", msg); 
 }
