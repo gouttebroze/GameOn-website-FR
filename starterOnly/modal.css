@@ -111,10 +111,6 @@ img {
   }
 }
 
-
-
-
-
 main {
   font-size: 130%;
   font-weight: bolder;
@@ -125,8 +121,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -585,19 +579,6 @@ footer {
 }
 
 /*new css elements*/
-/* .succes-content {
-  
-  width: 100%;
-  max-width: 500px;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
-  background: #232323;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  color: #fff;
-  padding-top: 10px;
-} */
 #success-div {
   display: flex;
   justify-content: center;
@@ -645,8 +626,31 @@ footer {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    /* margin-top: -15px; */
+    margin-top: 3px;
+    color: red;
   }
 
-  .bground {}
+  .hero-content {
+    min-width: 320px;
+  }
+
+  .hero-headline {
+    font-size: 40px;
+    white-space: normal;
+  }
+
+  .hero-text {
+    width: 80vw;
+    font-size: 13px;
+  }
+
+  .header-logo {
+    padding-left: 30px;
+    padding-top: 15px;
+  }
+
+  .header-logo>img {
+    width: 40vw;
+  }
 }

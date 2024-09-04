@@ -8,12 +8,6 @@ function editNav() {
 }
 
 // DOM Elements
-/* 
- * on cible certaines balises HTML à partir de leur sélecteur CSS, 
- * avec le tag name, avec l'id, avec la classe 
- * ou en combinant ces sélecteurs (tel `...querySelector("tagName#idName.className")`)
- * ici on utilise les classes des balises HTML comme sélecteur CSS 
- * */
 
 // ci-dessous, on cible une balise <div> du HTML ayant la classe "bground" 
 // & on stock cette sélection de balise dans une variable (de type constante, elle ne pourra être modifié) nommée "modalbg"
@@ -23,7 +17,6 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
 const closeModal = document.querySelector(".close");
-
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -57,28 +50,9 @@ closeModal.addEventListener("click", closeModalFn)
 function successSubmit() {
   
   const modalBody = document.querySelector(".modal-body"); /* cible la modale */
-
   const form = document.querySelector("form"); // cible l'élément HTML "form"
-  
   modalBody.removeChild(form); // supprime "form", le noeud enfant de "modal-body"
-
-  /* création des éléments HTML, chargés de l'affichage 
-     du message de confirmation d'inscription, dans la modale,
-     avec un style CSS conforme au rendu visuel qu'on retrouve sur la maquette
-     nos el. HTML sont constituées: 
-        - d'un élément parent représenté par une division (une balise <div>) qui englobe, 
-        tel un wrapper les él. enfants constitués par:
-        - 2 éléments (enfants de la div wrapper):  
-          + 1 balise <h3> (contenant de msg de réussite)
-          + 1 btn "Fermer" (remplaçant le btn de soumission du form), 
-            (le click sur ce btn ferme la modale)
-  */ 
- /**
-  * méthode "insertAdjacentHTML()" 
-  * permet d'insérer un noeud HTML ds le DOM en indiquant sa position
-  * prend la position en 1er paramètre 
-  * & un texte (string) au format HTML à inserer ds l'arbre DOM en second paramètre
-  */
+ 
   modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>'); 
   // création d'1 div inséré ds le DOM à la position "afterbegin", 
   // soit juste à l'intérieur de l'element "modalBody", avant son premier enfant
@@ -87,24 +61,22 @@ function successSubmit() {
   const DIV = document.querySelector("#success-div");
 
   /* 
-   * nous voulons créer une structure avec 
-   * 1 div parent, contenant, en 1er, un titre, & en 2e, un btn 
-   * 
    * En utilisant le paramètre de position "afterbegin",
    * On positionne & on insérer, à l'intérieur de notre nouvelle balise <div>, 
    * une balise <button> (représente notre btn "Fermer")
-   * 
    * puis, tjrs à l'intérieur de la <div> & avant son 1er enfant (soit la balise <button>)
    * on insère une balise <h3> pr afficher notre msg de réussite,
-   * 
    * ainsi notre balise <h3> se positionne en 1er, suivi de la balise <button>
   */
   DIV.insertAdjacentHTML("afterbegin", '<button class="btn-signup button success-btn close-btn">Fermer</button>'); 
   DIV.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
 
+  // on cible le btn qu'on vient de créer
   const closeModalBtn = document.querySelector(".close-btn");
    
-  /* écoute le clic du boutton */
+  /* au clic sur le btn, on lance la fn "closeModalFn" qui ferme la modale, 
+     en modifiant la valeur de la propriété "display", de "block" à "none" 
+  */
   closeModalBtn.addEventListener("click", closeModalFn)
 }
 
@@ -119,19 +91,10 @@ let birthdateTag = document.querySelector("#birthdate");
 let quantityTag = document.querySelector("#quantity"); 
 let checkbox1 = document.getElementById("checkbox1");
 
-/**
- * `querySelectorAll()` pr cibler plusieurs éléments
- * Pour cibler une liste d'éléments, étant donnée que le `querySelector` ne permet de récupérer qu'une seule balise HTML, 
- * on utilise la méthode `querySelectorAll()` qui fonctionne de la même façon 
- * (sélecteur CSS ds les parenthèses), mais qui permet de récupérer un ensemble d'éléments.
- *  
- * Par la suite, on pourra parcourir l'ensemble à l'aide d'une boucle.
- */
 // on vise plusieurs balises, ici les <input> type radio, (ou radio-btn)
 let radioBtnList = document.querySelectorAll('input[type=radio]');
 
 /* MESSAGES TEXT CONTENT */
-/* on stock le contenu de nos messages ds des variables */
 const SUCCESS_SUBMIT = "Merci ! Votre réservation a été reçue.";
 const MIN_CHAR = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const EMAIL_FORMAT_VALID = "Veuillez entrer une adresse mail valide.";
@@ -143,18 +106,10 @@ const ERROR = "Erreur..."
 const SUBMIT_MSG = "Merci pour votre inscription.";
 
 /* INPUT VALUES */
-/* on stock les valeurs contenu ds les champs du formulaire */
 let firstName = firstNameTag.value;
 let lastName = lastNameTag.value;
 let email = emailTag.value;
 let quantity = quantityTag.value;
-
-/* 
- * Création de fns permettant de vérifier différentes règles, 
- * ces fns sont composables (pouvant être réutilisées ds différents champs, 
- * si la condition à vérifiée est la même), 
- * le paramètre "name" représente le contenu du champs du form. 
- * */
 
 /**
  * firstName & lastName field form
@@ -236,17 +191,6 @@ const isCheckboxSelected = (checkbox) => {
   }
 }
 
-// const checkFirstNameValid = () => {
-//   const formDataTag = firstNameTag.parentNode
-//   if (checkName(firstNameTag.value)) {
-//      formDataTag.removeAttribute("data-error-visible")
-//      formDataTag.removeAttribute("data-error")
-//   } else {   
-//     formDataTag.setAttribute("data-error-visible", "true")
-//     formDataTag.setAttribute("data-error", MIN_CHAR)
-//   }
-// }
-
 const checkFirstNameValid = () => {
   if (checkName(firstNameTag.value)) {
      deleteErrorMsg(firstNameTag)
@@ -254,17 +198,6 @@ const checkFirstNameValid = () => {
     setErrorMsg(firstNameTag, MIN_CHAR)
   }
 }
-
-// const checkLastNameValid = () => {
-//   const formDataTag = lastNameTag.parentNode
-//   if (checkName(lastNameTag.value)) {
-//     formDataTag.removeAttribute("data-error-visible")
-//     formDataTag.removeAttribute("data-error")
-//   } else {
-//     formDataTag.setAttribute("data-error-visible", "true")
-//     formDataTag.setAttribute("data-error", MIN_CHAR)
-//   }
-// }
 
 /**
  * fn qui utilise une fn en condition créée précédament 
@@ -293,28 +226,18 @@ const checkEmailValid = () => {
 }
 
 const checkBirthDateNotEmpty = () => {
-  // const formDataTag = birthdateTag.parentNode;
   if (checkBirthDate(birthdateTag.value)) {
     deleteErrorMsg(birthdateTag);
-    // formDataTag.removeAttribute("data-error-visible");
-    // formDataTag.removeAttribute("data-error");
   } else {
     setErrorMsg(birthdateTag, BIRTHDATE_REQUIRED);
-    // formDataTag.setAttribute("data-error-visible", "true");
-    // formDataTag.setAttribute("data-error", BIRTHDATE_REQUIRED);
   }
 }
 
 const checkQuantityValue = () => {
-  // const formDataTag = quantityTag.parentNode;
   if (checkQuantity(quantityTag.value)) {
     deleteErrorMsg(quantityTag);
-    // formDataTag.removeAttribute("data-error-visible");
-    // formDataTag.removeAttribute("data-error");    
   } else {
     setErrorMsg(quantityTag, NUMERIQUE_VALUE);
-    // formDataTag.setAttribute("data-error-visible", "true");
-    // formDataTag.setAttribute("data-error", NUMERIQUE_VALUE);
   }
 }
 
@@ -337,11 +260,6 @@ let form = document.querySelector("form");
 // listen on "submit" event on HTML form
 form.addEventListener("submit", (e) => {
 
-  /**
-   * as we don't want to reload page on submit HTML form, 
-   * we use the "preventDefault()" fn on submit event (called here "e") 
-   * to prevent submit form default comportement (that is to reload page)
-   */
   e.preventDefault();
   
   const firstNameValue = firstNameTag.value;
@@ -369,13 +287,10 @@ form.addEventListener("submit", (e) => {
       && checkRadioBtn() 
       && checkTermsConditions()
     ) {   
-     //alert(SUCCESS_SUBMIT);
+
      console.log(SUCCESS_SUBMIT);
      successSubmit();
-     // TODO: change "resetForm()" to close modal fn
      resetForm(); // reset form if submit is successfull (??? SEE if I KEEP IT ???)
-     // closeModalFn(); // call fn to close modal if form is validate
-
      return true;
    }
    console.log(ERROR);
@@ -391,7 +306,6 @@ const resetForm = () => {
 }
 
 /**
- * 
  * @param {string} tag - Tag
  */
 function deleteErrorMsg(tag) {
@@ -401,7 +315,6 @@ function deleteErrorMsg(tag) {
 }
 
 /**
- * 
  * @param {string} tag - Tag is a reference to a node, into the form,
  * @param {string} msg - Msg is the error text content message
  */
@@ -423,13 +336,3 @@ function setErrorMsg(tag, msg) {
   */
   formDataTag.setAttribute("data-error", msg); 
 }
-
-/** TODO ** */
-/*
-  - use "deleteErrorMsg()" & "setErrorMsg()" on every fn
-*/
-
-/**
- * See "onsubmit" : 
- *  - fn deleted from onSubmit HTML form attribut : onSubmit="return validate()"
- */
