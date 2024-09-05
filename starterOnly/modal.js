@@ -12,6 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeModal = document.querySelector(".close");
+const successDiv = document.querySelector("#success-div");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -19,6 +20,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  form.style.display = "block";
 }
 
 function closeModalFn() {
@@ -28,13 +30,16 @@ function closeModalFn() {
 // close modal on click arrow btn 
 closeModal.addEventListener("click", closeModalFn)
 
+function exitSuccessModal() {
+  modalbg.style.display = "none";
+  location.reload();
+}
+
 function successSubmit() {
   const modalBody = document.querySelector(".modal-body");
   const form = document.querySelector("form");
- 
 
-  //modalBody.removeChild(form);
-  form.style.display = "none"; // hide instead to remove the form
+  form.style.display = "none"; 
 
   modalBody.insertAdjacentHTML("afterbegin", '<div id="success-div"></div>'); 
 
@@ -44,9 +49,7 @@ function successSubmit() {
   successContentTag.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
 
   const closeModalBtn = document.querySelector(".close-btn");
-  closeModalBtn.addEventListener("click", closeModalFn)
-
-  //form.reset();
+  closeModalBtn.addEventListener("click", exitSuccessModal)
 }
 
 /******************************
@@ -222,8 +225,6 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   
   console.log(e);
-  console.log();
-  
 
   const firstNameValue = firstNameTag.value;
   const lastNameValue = lastNameTag.value;
