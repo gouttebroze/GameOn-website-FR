@@ -13,6 +13,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeModal = document.querySelector(".close");
 const successDiv = document.querySelector("#success-div");
+const modalBody = document.querySelector(".modal-body");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -23,17 +24,18 @@ function launchModal() {
   form.style.display = "block";
 }
 
+
 function closeModalFn() {
   modalbg.style.display = "none";
+  location.reload();
 }
 
 // close modal on click arrow btn 
 closeModal.addEventListener("click", closeModalFn)
 
-function exitSuccessModal() {
+/* function exitSuccessModal() {
   modalbg.style.display = "none";
-  location.reload();
-}
+} */
 
 function successSubmit() {
   const modalBody = document.querySelector(".modal-body");
@@ -49,7 +51,7 @@ function successSubmit() {
   successContentTag.insertAdjacentHTML("afterbegin", '<h3 class="success-text">Merci pour votre inscription.</h3>');
 
   const closeModalBtn = document.querySelector(".close-btn");
-  closeModalBtn.addEventListener("click", exitSuccessModal)
+  closeModalBtn.addEventListener("click", closeModalFn)
 }
 
 /******************************
@@ -265,6 +267,7 @@ form.addEventListener("submit", (e) => {
  */
 const resetForm = () => {
   form.reset()
+  
 }
 
 /**
